@@ -1,12 +1,15 @@
 package tick;
 
+import java.util.TimerTask;
+
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import tick.events.TickEvent;
+import tick.events.TickPayerEvent;
+import tick.events.TickEntityEvent;
 
-public class TickScheduler extends BukkitRunnable {
+public class TickScheduler extends TimerTask {
 	Main plugin;
 
 	TickScheduler(Main plugin) {
@@ -16,7 +19,10 @@ public class TickScheduler extends BukkitRunnable {
 	@Override
 	public void run() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			this.plugin.getServer().getPluginManager().callEvent(new TickEvent(p));
+			this.plugin.getServer().getPluginManager().callEvent(new TickPayerEvent(p));
+		}
+		for (Entity e : Bukkit.getWorlds().get(0).getEntities()) {
+			this.plugin.getServer().getPluginManager().callEvent(new TickEntityEvent(e));
 		}
 	}
 }

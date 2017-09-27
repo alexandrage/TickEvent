@@ -1,22 +1,28 @@
 package tick;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-import tick.events.TickEvent;
+import tick.events.TickPayerEvent;
+import tick.events.TickEntityEvent;
+
 public class EventListener implements Listener {
-	Main plugin;
-
-	EventListener(Main plugin) {
-		this.plugin = plugin;
+	@EventHandler
+	public void onTick(TickPayerEvent e) {
+		CustomConfig time = Main.config().get(e.getPlayer().getName());
+		long l = time.get().getInt("Time", 0);
+		time.get().set("Time", l + 1);
 	}
 
 	@EventHandler
-	public void onTick(TickEvent e) {
-		Player p = e.getPlayer();
-		if (p.getRemainingAir() < 290) {
-			//TODO
-		}
+	public void onTick(PlayerQuitEvent e) {
+		Configs cfg = Main.config();
+		cfg.saverem(e.getPlayer().getName());
+	}
+
+	@EventHandler
+	public void onTick(TickEntityEvent e) {
+
 	}
 }
