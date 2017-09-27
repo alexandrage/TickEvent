@@ -6,7 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import tick.events.TickPayerEvent;
+import tick.events.TickPlayerEvent;
 import tick.events.TickEntityEvent;
 
 public class TickScheduler extends TimerTask {
@@ -19,7 +19,7 @@ public class TickScheduler extends TimerTask {
 	@Override
 	public void run() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			this.plugin.getServer().getPluginManager().callEvent(new TickPayerEvent(p));
+			this.plugin.getServer().getPluginManager().callEvent(new TickPlayerEvent(p));
 		}
 		for (Entity e : Bukkit.getWorlds().get(0).getEntities()) {
 			this.plugin.getServer().getPluginManager().callEvent(new TickEntityEvent(e));

@@ -4,11 +4,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class TickPayerEvent extends Event {
+public class TickPlayerEvent extends Event {
 	private Player p;
 	private static HandlerList handlers = new HandlerList();
 
-	public TickPayerEvent(Player p) {
+	public TickPlayerEvent(Player p) {
 		this.p = p;
 	}
 
