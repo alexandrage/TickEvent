@@ -17,7 +17,7 @@ public class EventListener implements Listener {
 	@EventHandler
 	public void onTick(TickPlayerEvent e) {
 		CustomConfig time = this.config.get(e.getPlayer().getName());
-		long l = time.get().getInt("Time", 0);
+		long l = time.get().getLong("Time", 0);
 		time.get().set("Time", l + 1);
 	}
 
