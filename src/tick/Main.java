@@ -1,35 +1,28 @@
 package tick;
 
 import java.util.Timer;
-
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin implements Listener, CommandExecutor {
+public class Main extends JavaPlugin {
 
-	private static Main instance;
-	private static Configs config;
+	private Configs config;
+	Timer timer;
 
-	public static Main plugin() {
-		return instance;
-	}
-
-	public static Configs config() {
+	public Configs config() {
 		return config;
 	}
 
 	@Override
 	public void onEnable() {
-		instance = this;
-		config = new Configs();
-		Timer timer = new Timer();
+		config = new Configs(this.getDataFolder().getPath());
+		timer = new Timer();
 		timer.schedule(new TickScheduler(this), 0, 1000);
-		getServer().getPluginManager().registerEvents(new EventListener(), this);
+		getServer().getPluginManager().registerEvents(new EventListener(config), this);
 	}
 
 	@Override
 	public void onDisable() {
 		config.saveAll();
+		timer.cancel();
 	}
 }

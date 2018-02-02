@@ -8,17 +8,22 @@ import tick.events.TickPlayerEvent;
 import tick.events.TickEntityEvent;
 
 public class EventListener implements Listener {
+	Configs config;
+
+	EventListener(Configs config) {
+		this.config = config;
+	}
+
 	@EventHandler
 	public void onTick(TickPlayerEvent e) {
-		CustomConfig time = Main.config().get(e.getPlayer().getName());
+		CustomConfig time = this.config.get(e.getPlayer().getName());
 		long l = time.get().getInt("Time", 0);
 		time.get().set("Time", l + 1);
 	}
 
 	@EventHandler
 	public void onTick(PlayerQuitEvent e) {
-		Configs cfg = Main.config();
-		cfg.saverem(e.getPlayer().getName());
+		config.saveRem(e.getPlayer().getName());
 	}
 
 	@EventHandler

@@ -3,6 +3,7 @@ package tick;
 import java.util.TimerTask;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -21,8 +22,10 @@ public class TickScheduler extends TimerTask {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			this.plugin.getServer().getPluginManager().callEvent(new TickPlayerEvent(p));
 		}
-		for (Entity e : Bukkit.getWorlds().get(0).getEntities()) {
-			this.plugin.getServer().getPluginManager().callEvent(new TickEntityEvent(e));
+		for (World world : Bukkit.getWorlds()) {
+			for (Entity e : world.getEntities()) {
+				this.plugin.getServer().getPluginManager().callEvent(new TickEntityEvent(e));
+			}
 		}
 	}
 }
