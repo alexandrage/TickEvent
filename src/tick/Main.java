@@ -12,23 +12,34 @@ public class Main extends JavaPlugin implements ITickEvent {
 
 	@Override
 	public void onEnable() {
-		config = new Configs(this.getDataFolder().getPath());
-		timer = new Timer();
-		timer.schedule(new TickScheduler(this), 0, 1000);
-		getServer().getPluginManager().registerEvents(new EventListener(config), this);
+		this.getConfig().addDefault("time", false);
+		this.getConfig().options().copyDefaults(true);
+		this.saveConfig();
+		this.config = new Configs(this.getDataFolder().getPath()+"/players/");
+		this.timer = new Timer();
+		this.timer.schedule(new TickScheduler(this), 0, 1000);
+		getServer().getPluginManager().registerEvents(new EventListener(config, this.getConfig()), this);
 	}
 
 	@Override
 	public void onDisable() {
-		config.saveAll();
-		timer.cancel();
+		this.config.saveAll();
+		this.timer.cancel();
 	}
-	
+
 	public Long getPlayerTime(Player p) {
-		return this.config.get(p.getName()).get().getLong("Time");
+		if (this.config.hash(p.getName())) {
+			return this.config.get(p.getName()).get().getLong("Time");
+		} else {
+			return -1l;
+		}
 	}
-	
+
 	public Long getPlayerTime(String n) {
-		return this.config.get(n).get().getLong("Time");
+		if (this.config.hash(n)) {
+			return this.config.get(n).get().getLong("Time");
+		} else {
+			return -1l;
+		}
 	}
 }

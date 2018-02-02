@@ -8,9 +8,12 @@ public class CustomConfig {
 
 	private YamlConfiguration yml;
 	private File file;
+	String folder;
 
 	CustomConfig(String name, String folder) {
+		this.folder = folder;
 		this.file = new File(folder, name + ".yml");
+		this.file.getParentFile().mkdirs();
 		yml = YamlConfiguration.loadConfiguration(file);
 		this.file.getParentFile().mkdirs();
 	}
@@ -35,8 +38,8 @@ public class CustomConfig {
 		}
 	}
 
-	public static boolean exist(String name, String folder) {
-		File file = new File(folder, name + ".yml");
+	public static boolean exist(String name, String f) {
+		File file = new File(f, name + ".yml");
 		return file.exists();
 	}
 }
