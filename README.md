@@ -1,7 +1,9 @@
 # TickEvent
 
 Использование ивентов.
+
 import tick.events.TickPlayerEvent;
+
 import tick.events.TickEntityEvent;
 
 	@EventHandler
