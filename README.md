@@ -10,6 +10,7 @@ import tick.events.TickEntityEvent;
 	public void onTick(TickPlayerEvent e) {
 		
 	}
+
 	@EventHandler
 	public void onTick(TickEntityEvent e) {
 		
