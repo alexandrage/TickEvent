@@ -14,7 +14,6 @@ import tick.events.TickEntityEvent;
 	}
 
 Подключение интерфейса для получения времени игрока в игре.
-
 import tick.ITickEvent;
 
 public ITickEvent tick;
