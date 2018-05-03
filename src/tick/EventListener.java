@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import tick.events.TickPlayerEvent;
+import tick.events.TimeChangeEvent;
 import tick.events.TickEntityEvent;
 
 public class EventListener implements Listener {
@@ -15,6 +16,12 @@ public class EventListener implements Listener {
 	EventListener(Configs config, FileConfiguration c) {
 		this.config = config;
 		this.c = c;
+	}
+
+	@EventHandler
+	public void onTick(TimeChangeEvent e) {
+		e.getWorld().getTime();
+		e.getWorld();
 	}
 
 	@EventHandler

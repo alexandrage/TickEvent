@@ -1,30 +1,29 @@
 package tick;
 
-import java.util.TimerTask;
+import java.util.Iterator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import tick.events.TickPlayerEvent;
 import tick.events.TickEntityEvent;
 
-public class TickScheduler extends TimerTask {
-	Main plugin;
-
-	TickScheduler(Main plugin) {
-		this.plugin = plugin;
-	}
+public class TickScheduler extends BukkitRunnable {
 
 	@Override
 	public void run() {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			this.plugin.getServer().getPluginManager().callEvent(new TickPlayerEvent(p));
+		Iterator<? extends Player> itp = Bukkit.getOnlinePlayers().iterator();
+		while (itp.hasNext()) {
+			Bukkit.getServer().getPluginManager().callEvent(new TickPlayerEvent(itp.next()));
 		}
+
 		for (World world : Bukkit.getWorlds()) {
-			for (Entity e : world.getEntities()) {
-				this.plugin.getServer().getPluginManager().callEvent(new TickEntityEvent(e));
+			Iterator<Entity> ite = world.getEntities().iterator();
+			while (ite.hasNext()) {
+				Bukkit.getServer().getPluginManager().callEvent(new TickEntityEvent(ite.next()));
 			}
 		}
 	}
