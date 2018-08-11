@@ -19,8 +19,8 @@ public class TimeChangeEvent extends Event {
 	public static HandlerList getHandlerList() {
 		return handlers;
 	}
-	
+
 	public World getWorld() {
-		return world;
+		return this.world;
 	}
 }
